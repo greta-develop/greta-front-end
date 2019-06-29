@@ -55,8 +55,8 @@
                 {{el.details}}
           </td>
         <td>{{el.receipt}}</td>
-        <td>{{el.amount}}</td>
-        <td>{{el.balance}}</td>
+        <td>{{el.amount | currency:'KRW':'&nbsp;'}}</td>
+        <td>{{el.balance | currency:'KRW':'&nbsp;'}}</td>
         <td>{{el.date}}</td>
 
         <td>

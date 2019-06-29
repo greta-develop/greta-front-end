@@ -1,5 +1,5 @@
-body {
-  background: #e0e0e0
+html body {
+  background: #757575
 }
 
 .red-dot { 
@@ -32,6 +32,11 @@ body {
   background: #3a3a3a;
   border-radius: 50%;
   text-align: center;
+}
+
+table {
+  border-collapse:separate; 
+  border-spacing: 0 1em;
 }
 
 .table thead th {
