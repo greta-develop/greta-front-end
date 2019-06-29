@@ -44,7 +44,12 @@
   <div class="form">
     <div class="row2">
       <div style="margin-top: 58%">
-        <form class="text-center p-5" [formGroup]="loginForm" style="width: 400px;">
+        <form class="text-center p-5" [formGroup]="createForm" style="width: 400px;">
+          <div class="md-form">
+            <label for="email1">Name</label>
+            <input type="text" id="email1" class="form-control" formControlName="userName">
+          </div>
+
           <div class="md-form">
             <label for="email1">Email</label>
             <input type="text" id="email1" class="form-control" formControlName="userEmail">
@@ -55,11 +60,11 @@
             <input type="password" id="password" class="form-control" formControlName="userPassword">
           </div>
 
-          <button class="button1" type="submit" (click)="login()">Sign Up</button>
+          <button class="button1" type="submit" (click)="register()">Register</button>
 
-          <p style="margin-top: 94%; color: #131415;text-decoration: underline;">
+          <!-- <p style="margin-top: 70%; color: #131415;text-decoration: underline;">
             <a (click)="toggleAuthForm()">Register or Find Password</a>
-          </p>
+          </p> -->
 
         </form>
       </div>
@@ -68,113 +73,66 @@
 </div>
 
 
-<!-- 
-    <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header text-center">
-            <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+<div class="modal fade bottom" id="modalCreateBank" tabindex="-1" role="dialog" aria-labelledby="myModalLabe"
+  aria-hidden="true" style="overflow-y: auto" mdbModal #basicModal="mdbModal">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Before you start, <br>you have to
+          register your bank account.</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form class="p-3 form-group" [formGroup]="testForm">
+
+        <div class="modal-body mx-3">
+
+          <div class="md-form mb-5">
+            <i class="fas fa-user prefix grey-text"></i>
+            <input formControlName="bankName" type="text" id="form34" class="form-control validate" placeholder="name">
           </div>
 
+          <div class="md-form mb-5">
+            <i class="fas fa-dot-circle prefix grey-text"></i>
+            <input type="email" id="form29" class="form-control validate" placeholder="bank swift code"
+              formControlName="bankCode">
+          </div>
 
-
-          - <form class="p-3 form-group" [formGroup]="createForm">
-
-            <div class="modal-body mx-3">
-              <div class="md-form mb-5">
-                <i class="fas fa-envelope prefix grey-text"></i>
-                <input type="email" id="orangeForm-email" class="form-control validate" placeholder="email"
-                  formControlName="userEmail">
+          <div class="md-form mb-3">
+            <div class="row">
+              <div class="col-9">
+                <i class="fas fa-money-check-alt prefix grey-text mr-1"></i>
+                <input type="text" id="form32" class="form-control validate" placeholder="bank account"
+                  formControlName="bankAccount">
               </div>
-
-              <div class="md-form mb-4">
-                <i class="fas fa-lock prefix grey-text"></i>
-                <input type="password" id="orangeForm-pass" class="form-control validate" placeholder="password"
-                  formControlName="userPassword">
-              </div>
-
-              <div class="md-form mb-5">
-                <i class="fas fa-user prefix grey-text"></i>
-                <input type="text" id="orangeForm-name" class="form-control validate" placeholder="name"
-                  formControlName="userName">
+              <div class="col-sm-3">
+                <button class="btn btn-sm btn-secondary" (click)="checkBankAccount()">Check</button>
               </div>
             </div>
+          </div>
 
-          </form>
+          <div class="md-form mb-5">
+            <i class="fas fa-user prefix grey-text"></i>
+            <input formControlName="subjectName" type="text" id="form34" class="form-control validate"
+              placeholder="subjectName">
+          </div>
+          <div class="md-form mb-5">
+            <i class="fas fa-user prefix grey-text"></i>
+            <input formControlName="subjectUrl" type="text" id="form34" class="form-control validate"
+              placeholder="subjectUrl">
+            <span>최종 url :
+              {{this.testForm.get('subjectName').value}}/{{this.testForm.get('subjectUrl').value}}</span>
+          </div>
+
           <div class="modal-footer d-flex justify-content-center">
-            <button class="btn btn-deep-orange" (click)="register()">Sign up</button>
+            <button class="btn btn-secondary" [disabled]="!isCheckBA" (click)="createBank()">Send <i
+                class="fas fa-paper-plane-o ml-1"></i></button>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="modal fade bottom" id="modalCreateBank" tabindex="-1" role="dialog" aria-labelledby="myModalLabe"
-      aria-hidden="true" style="overflow-y: auto" mdbModal #basicModal="mdbModal">
-
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header text-center">
-            <h4 class="modal-title w-100 font-weight-bold">Before you start, <br>you have to
-              register your bank account.</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
-          <form class="p-3 form-group" [formGroup]="testForm">
-
-            <div class="modal-body mx-3">
-
-              <div class="md-form mb-5">
-                <i class="fas fa-user prefix grey-text"></i>
-                <input formControlName="bankName" type="text" id="form34" class="form-control validate"
-                  placeholder="name">
-              </div>
-
-              <div class="md-form mb-5">
-                <i class="fas fa-dot-circle prefix grey-text"></i>
-                <input type="email" id="form29" class="form-control validate" placeholder="bank swift code"
-                  formControlName="bankCode">
-              </div>
-
-              <div class="md-form mb-3">
-                <div class="row">
-                  <div class="col-9">
-                    <i class="fas fa-money-check-alt prefix grey-text mr-1"></i>
-                    <input type="text" id="form32" class="form-control validate" placeholder="bank account"
-                      formControlName="bankAccount">
-                  </div>
-                  <div class="col-sm-3">
-                    <button class="btn btn-sm btn-secondary" (click)="checkBankAccount()">Check</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="md-form mb-5">
-                <i class="fas fa-user prefix grey-text"></i>
-                <input formControlName="subjectName" type="text" id="form34" class="form-control validate"
-                  placeholder="subjectName">
-              </div>
-              <div class="md-form mb-5">
-                <i class="fas fa-user prefix grey-text"></i>
-                <input formControlName="subjectUrl" type="text" id="form34" class="form-control validate"
-                  placeholder="subjectUrl">
-                <span>최종 url :
-                  {{this.testForm.get('subjectName').value}}/{{this.testForm.get('subjectUrl').value}}</span>
-              </div>
-
-              <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-secondary" [disabled]="!isCheckBA" (click)="createBank()">Send <i
-                    class="fas fa-paper-plane-o ml-1"></i></button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
-</div> -->
+</div>

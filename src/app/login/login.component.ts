@@ -122,6 +122,7 @@ export class LoginComponent implements OnInit {
         this.toastr.success("Greta 서비스에 가입하신걸 환영합니다");
         console.log("[login.component.ts] $register() ====> ", ret);
         this.hideSignUpModal();
+        this.istoggleAuthForm = !this.istoggleAuthForm;
       }, e => {
         this.toastr.error("회원가입에 실패하였습니다...");
         console.error("[login.component.ts] $register() ====> ", e);
