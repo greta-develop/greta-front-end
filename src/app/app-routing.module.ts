@@ -7,17 +7,18 @@ import { InfoComponent } from './ledger/info/info.component'
 import { CreateComponent } from "./bank/create/create.component"
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: ':p/:pp', redirectTo: 'ledger/info/:p/:pp', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
   { path: 'ledger/list', component: ListComponent },
-  { path: 'ledger/info', component: InfoComponent },
+  { path: 'ledger/info/:p/:pp', component: InfoComponent },
 
   { path: 'bank/create', component: CreateComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

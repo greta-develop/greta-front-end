@@ -165,6 +165,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  url: any;
   createBank() {
     console.log('createBank!!');
     let token = localStorage.getItem('token');
@@ -194,11 +195,20 @@ export class LoginComponent implements OnInit {
       // .pipe(
       //   // finalize(() => this.ngxService.stop())
       // )
-      .subscribe(ret => {
+      .subscribe((ret: any) => {
         console.log("[login.component.ts] $createBank () ====> ", ret);
 
         this.toastr.success("계좌정보 등록에 성공하셨습니다!");
-        this.router.navigate(['ledger/info']);
+
+        console.log(param.group_url);
+        this.url = param.group_url;
+
+        $("#modalCreateBank").modal('hide').on('hidden.bs.modal', function () {
+          $("#showurlmodal").modal('show');
+        });
+
+
+        // this.router.navigate(['ledger/info']);
       }, e => {
         this.toastr.error("계좌정보 등록에 실패하였습니다...", e);
         console.log(JSON.stringify(e));

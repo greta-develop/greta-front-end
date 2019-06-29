@@ -26,6 +26,8 @@ export class InfoComponent implements OnInit {
   searchText: string = '';
   previous: string;
 
+  replyForm: FormGroup;
+
 
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router,
@@ -39,6 +41,12 @@ export class InfoComponent implements OnInit {
   url: any;
 
   ngOnInit() {
+
+    this.replyForm = this.formBuilder.group({
+      email: ['', []],
+      message: ['', []],
+    });
+
     // this.queryTranList();
     this.queryGroups() //시도한 유저의 url 을 얻어서
       .then((ret) => {
@@ -88,6 +96,11 @@ export class InfoComponent implements OnInit {
     console.log("show!");
     $('#list-menu-modal').modal('show');
   }
+  showReplyModal() {
+    console.log("show!");
+    $('#replymodal').modal('show');
+  }
+  
 
   queryGroups() {
     return new Promise((res, rej) => {
