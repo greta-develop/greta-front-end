@@ -21,7 +21,7 @@ export class InfoComponent implements OnInit {
 
   @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
   elements: any = [];
-  headElements = ['id', 'flag', 'Contents', 'Type', 'Details', 'Receipt', 'Amount', 'Balance', 'Date', 'Reply'];
+  headElements = ['Contents', 'Type', 'Details', 'Receipt', 'Amount', 'Balance', 'Date', 'Reply'];
 
   searchText: string = '';
   previous: string;
@@ -56,8 +56,6 @@ export class InfoComponent implements OnInit {
             for (let i = 1; i <= ret.length; i++) {
               this.elements.push(
                 {
-                  id: i.toString(),
-                  flag: "dummy",
                   contents: ret[i - 1].content,
                   type: ret[i - 1].type,
                   details: ret[i - 1].detail,
@@ -100,7 +98,7 @@ export class InfoComponent implements OnInit {
     console.log("show!");
     $('#replymodal').modal('show');
   }
-  
+
 
   queryGroups() {
     return new Promise((res, rej) => {
@@ -121,7 +119,7 @@ export class InfoComponent implements OnInit {
         //   finalize(() => this.ngxService.stop())
         // )
         .subscribe((ret: any) => {
-          this.toastr.success("정보 가져오기 성공");
+          // this.toastr.success("정보 가져오기 성공");
           this.url = ret[0].alias_url;
           console.log("[info.component.ts] $queryGroups () ====> ret", ret);
           console.log("[info.component.ts] $queryGroups () ====> url", this.url);
@@ -155,7 +153,7 @@ export class InfoComponent implements OnInit {
         //   finalize(() => this.ngxService.stop())
         // )
         .subscribe((ret: any) => {
-          this.toastr.success("트랜젝션 가져오기 성공");
+          // this.toastr.success("트랜젝션 가져오기 성공");
           console.log("[info.component.ts] $queryTranList () ====> ret", ret);
           res(ret);
         }, e => {
