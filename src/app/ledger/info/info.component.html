@@ -34,7 +34,8 @@
   <table mdbTable style="">
     <thead>
       <tr>
-        <th *ngFor="let head of headElements; let i = index" scope="col" style="color: #9e9e9e; border-bottom: 1px solid #e0e0e0; font-weight: 500">
+        <th *ngFor="let head of headElements; let i = index" scope="col"
+          style="color: #9e9e9e; border-bottom: 1px solid #e0e0e0; font-weight: 500">
           {{head}}
         </th>
         <th>&nbsp;</th>
@@ -45,7 +46,7 @@
       <tr *ngFor="let el of elements; let i = index" style="margin-top: 10px;">
         <td>{{el.contents}}</td>
         <td>{{el.type}}</td>
-        <td>{{el.details}}</td>
+        <td><input type="text" value="{{el.details}}" style="background: none; border: none; width: 100%;"></td>
         <td>{{el.receipt}}</td>
         <td>{{el.amount}}</td>
         <td>{{el.balance}}</td>
