@@ -18,7 +18,8 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private toastr: ToastrService) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router,
+    private toastr: ToastrService) { }
 
   createForm: FormGroup;
   loginForm: FormGroup;
@@ -32,7 +33,9 @@ export class LoginComponent implements OnInit {
     this.testForm = this.formBuilder.group({
       bankName: ['', []],
       bankCode: ['', []],
-      bankAccount: ['', []]
+      bankAccount: ['', []],
+      subjectName: ['', []],
+      subjectUrl: ['', []]
     });
 
     this.createForm = this.formBuilder.group({
@@ -83,16 +86,17 @@ export class LoginComponent implements OnInit {
         console.log("[login.component.ts] $login () ====> ret", ret);
 
         localStorage.setItem("token", ret.token);
+        console.log("[login.component.ts] $login () ====> ", ret.token);
         // this.modal.title = "Login Success";
         if (!ret.isBank) {
           // 은행 카드 정보를 등록해야함 
           this.toastr.success("greta 정보를 등록해야합니다.");
           // this.router.navigate(['bank/create']);
           this.showCreateBankModal();
-
-        } else { // 등록되어있으면 메인페이지
+        } else {
+          // 은행 카드 정보를 등록했으면 그룹 상세보기로 넘어감
           this.toastr.success("장부 관리 페이지로 이동합니다.");
-          this.router.navigate(['ledger/list']);
+          this.router.navigate(['ledger/info']);
         }
       }, e => {
         this.toastr.error("로그인 실패. 정보를 확인해주세요");
@@ -173,7 +177,11 @@ export class LoginComponent implements OnInit {
     console.log(token);
 
     let param = {
+      name: this.testForm.get('bankName').value,
+      bank_id: this.testForm.get('bankCode').value,
       number: this.testForm.get('bankAccount').value,
+      group_subject: this.testForm.get('subjectName').value,
+      group_url: `${this.testForm.get('subjectName').value}/${this.testForm.get('subjectUrl').value}`,
       verify: true
     };
 
@@ -184,15 +192,51 @@ export class LoginComponent implements OnInit {
       //   // finalize(() => this.ngxService.stop())
       // )
       .subscribe(ret => {
+        console.log("[login.component.ts] $createBank () ====> ", ret);
+
         this.toastr.success("계좌정보 등록에 성공하셨습니다!");
+        this.router.navigate(['ledger/info']);
       }, e => {
         this.toastr.error("계좌정보 등록에 실패하였습니다...", e);
         console.log(JSON.stringify(e));
       });
   }
 
+  // queryGroup(){
+  //   let token = localStorage.getItem('token');
+
+  //   let headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${token}`
+  //   });
+  //   let options = {
+  //     headers: headers
+  //   };
+
+  //   // 그룹이 있는지 확인
+  //   this.http.get(`${environment.server.url}/api/group`, options)
+  //   // .pipe(
+  //   //   // finalize(() => this.ngxService.stop())
+  //   // )
+  //   .subscribe(ret => {
+  //     console.log("[login.component.ts] $queryGroup() ====> ", ret);
+  //     if(ret){ // 해당 그룹의 info 로 이동
+
+  //     } else { // 그룹 생성 페이지로 이동
+
+  //     }
+  //     this.toastr.success("계좌정보 등록에 성공하셨습니다!");
+  //     this.router.navigate(['ledger/info']);
+  //   }, e => {
+  //     this.toastr.error("계좌정보 등록에 실패하였습니다...", e);
+  //     console.log(JSON.stringify(e));
+  //   });
+  // }
+
   test(event: any) {
     console.log(this.testForm.value);
   }
+
+
 
 }
