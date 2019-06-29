@@ -47,13 +47,13 @@
         <td (click)="showReadReplyModal(el)">{{el.contents}}</td>
         <td>{{el.type}}</td>
         <td *ngIf="getToken() != undefined">
-          <input  type="text" value="{{el.details}}" style="background: none; border: none; width: 100%;"
+          <input type="text" value="{{el.details}}" style="background: none; border: none; width: 100%;"
             (keyup.enter)="modifyTitle(el , $event)">
-            
-          </td>
-          <td *ngIf="getToken() == undefined" (click)="showerrormessage('수정권한이없습니다')">
-                {{el.details}}
-          </td>
+
+        </td>
+        <td *ngIf="getToken() == undefined" (click)="showerrormessage('수정권한이없습니다')">
+          {{el.details}}
+        </td>
         <td>{{el.receipt}}</td>
         <td>{{el.amount | currency:'KRW':'&nbsp;'}}</td>
         <td>{{el.balance | currency:'KRW':'&nbsp;'}}</td>
@@ -72,6 +72,9 @@
             <span class="yellow-dot"></span>
             &nbsp;Answered
           </div>
+        </td>
+        <td>
+          <i class="fas fa-ellipsis-h mt-2" (click)="showReplyModal()" style="cursor: pointer"></i>
         </td>
       </tr>
     </tbody>
