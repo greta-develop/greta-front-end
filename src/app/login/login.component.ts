@@ -22,20 +22,30 @@ export class LoginComponent implements OnInit {
 
   createForm: FormGroup;
   loginForm: FormGroup;
+  testForm: FormGroup;
+  isCheckBA: Boolean;
 
   ngOnInit() {
+
+    this.isCheckBA = false;
+
+    this.testForm = this.formBuilder.group({
+      bankName: ['', []],
+      bankCode: ['', []],
+      bankAccount: ['', []]
+    });
 
     this.createForm = this.formBuilder.group({
       userEmail: ['', []],
       userPassword: ['', []],
-      userName: ['', []]
-    })
+      userName: ['', []],
+      asdf: ['', []],
+    });
 
     this.loginForm = this.formBuilder.group({
       userEmail: ['', []],
       userPassword: ['', []],
-    })
-
+    });
   }
 
   getUrl() {
@@ -48,6 +58,14 @@ export class LoginComponent implements OnInit {
   hideSignUpModal() {
     $('#modalRegisterForm').modal('hide');
   }
+
+  showCreateBankModal() {
+    $('#modalCreateBank').modal('show');
+  }
+  hideCreateBankModal() {
+    $('#modalCreateBank').modal('hide');
+  }
+
 
   login() {
     let param = {
@@ -69,8 +87,12 @@ export class LoginComponent implements OnInit {
         if (!ret.isBank) {
           // 은행 카드 정보를 등록해야함 
           this.toastr.success("greta 정보를 등록해야합니다.");
+          // this.router.navigate(['bank/create']);
+          this.showCreateBankModal();
+
         } else { // 등록되어있으면 메인페이지
-          this.toastr.success("메인페이지로 이동합니다.");
+          this.toastr.success("장부 관리 페이지로 이동합니다.");
+          this.router.navigate(['ledger/list']);
         }
       }, e => {
         this.toastr.error("로그인 실패. 정보를 확인해주세요");
@@ -98,7 +120,79 @@ export class LoginComponent implements OnInit {
         this.toastr.error("회원가입에 실패하였습니다...");
         console.error("[login.component.ts] $register() ====> ", e);
       });
+  }
 
+
+
+  checkBankAccount() {
+    let token = localStorage.getItem('token');
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    let options = {
+      headers: headers
+    };
+
+    console.log(token);
+
+    let param = {
+      number: this.testForm.get('bankAccount').value,
+      verify: false
+    };
+
+    console.log(param);
+
+    this.http.post(`${environment.server.url}/api/auth/users/banks`, param, options)
+      // .pipe(
+      //   // finalize(() => this.ngxService.stop())
+      // )
+      .subscribe(ret => {
+        this.toastr.success("계좌번호 조회에 성공하였습니다!");
+        this.isCheckBA = true;
+      }, e => {
+        this.toastr.error("계좌번호 조회에 실패하였습니다...", e);
+        this.isCheckBA = false;
+        console.log(JSON.stringify(e));
+      });
+  }
+
+  createBank() {
+    console.log('createBank!!');
+    let token = localStorage.getItem('token');
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    let options = {
+      headers: headers
+    };
+
+    console.log(token);
+
+    let param = {
+      number: this.testForm.get('bankAccount').value,
+      verify: true
+    };
+
+    console.log(param);
+
+    this.http.post(`${environment.server.url}/api/auth/users/banks`, param, options)
+      // .pipe(
+      //   // finalize(() => this.ngxService.stop())
+      // )
+      .subscribe(ret => {
+        this.toastr.success("계좌정보 등록에 성공하셨습니다!");
+      }, e => {
+        this.toastr.error("계좌정보 등록에 실패하였습니다...", e);
+        console.log(JSON.stringify(e));
+      });
+  }
+
+  test(event: any) {
+    console.log(this.testForm.value);
   }
 
 }
