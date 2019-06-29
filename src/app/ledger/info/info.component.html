@@ -31,6 +31,15 @@
       </div>
     </div>
   </div>
+  <div *ngIf="getToken() != undefined">
+    <span class="green-dot"></span>
+    &nbsp;Admin Mode
+  </div>
+  <div *ngIf="getToken() == undefined">
+    <span class="yellow-dot"></span>
+    &nbsp;Normal Mode
+  </div>
+
   <table mdbTable style="">
     <thead>
       <tr>
