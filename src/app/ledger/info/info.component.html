@@ -83,7 +83,7 @@
           </div>
         </td>
         <td>
-          <i class="fas fa-ellipsis-h mt-2" (click)="showReplyModal()" style="cursor: pointer"></i>
+          <i class="fas fa-ellipsis-h mt-2" (click)="showReplyModal(el)" style="cursor: pointer"></i>
         </td>
       </tr>
     </tbody>
@@ -122,7 +122,7 @@
 <div class="modal fade bottom" id="replymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabe"
   aria-hidden="true" style="overflow-y: auto" mdbModal #basicModal="mdbModal">
 
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">
@@ -133,12 +133,61 @@
         </button>
       </div>
 
-      <form class="p-3 form-group" [formGroup]="replyForm">
 
-        <div class="modal-body mx-3">
+      <div class="modal-body mx-3">
+
+
+        <hr>
+
+        <table mdbTable style="">
+          <thead>
+            <tr>
+              <th scope="col" style="color: #9e9e9e; border-bottom: 1px solid #e0e0e0; font-weight: 500">
+                subject
+              </th>
+              <th scope="col" style="color: #9e9e9e; border-bottom: 1px solid #e0e0e0; font-weight: 500">
+                status
+              </th>
+              <th scope="col" style="color: #9e9e9e; border-bottom: 1px solid #e0e0e0; font-weight: 500">
+                create-date
+              </th>
+              <th scope="col" style="color: #9e9e9e; border-bottom: 1px solid #e0e0e0; font-weight: 500">
+                reply
+              </th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let re of replies; let i = index" style="margin-top: 10px;">
+              <td>{{re.subject}}</td>
+              <td>{{re.status}}</td>
+              <td>{{re.created_at}}</td>
+              <td>
+                <div *ngIf="re.status == 'N'">
+                  <span class="green-dot"></span>
+                  &nbsp;Nothing
+                </div>
+                <div *ngIf="re.status == 'U'">
+                  <span class="red-dot"></span>
+                  &nbsp;Unanswered
+                </div>
+                <div *ngIf="re.status == 'A'">
+                  <span class="yellow-dot"></span>
+                  &nbsp;Answered
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Reply for Anonymous</h4>
+
+        <hr>
+
+        <form class="p-3 form-group" [formGroup]="replyForm">
 
           <div class="md-form mb-5">
-            <i class="fas fa-dot-circle prefix grey-text"></i>
             <input type="email" id="form29" class="form-control validate" placeholder="Email(optional)"
               formControlName="email">
           </div>
@@ -153,8 +202,9 @@
             <button class="btn btn-secondary" (click)="createReply()">Send
               <i class="fas fa-paper-plane-o ml-1"></i></button>
           </div>
-        </div>
-      </form>
+        </form>
+
+      </div>
     </div>
   </div>
 </div>

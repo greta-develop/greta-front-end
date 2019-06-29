@@ -103,7 +103,24 @@ export class InfoComponent implements OnInit {
     console.log("show!");
     console.log("[info.component.ts] $showReplyModal () ====> ret", this.selectModefyTran);
 
-    $('#replymodal').modal('show');
+    this.http.get(`${environment.server.url}/api/transaction/${el.id}/replies`)
+      // .pipe(
+      //   finalize(() => this.ngxService.stop())
+      // )
+      .subscribe((ret: any) => {
+        this.toastr.success("댓글 가져오기 성공");
+        // $("#show-readReply-modal").modal("show");
+        //this.url = ret[0].alias_url;
+        this.replies = ret;
+        console.log("[info.component.ts] $showReadReplyModal () ====> ret", ret);
+        $('#replymodal').modal('show');
+
+      }, e => {
+        this.toastr.error("댓글 가져오기 실패");
+        console.error("[info.component.ts] $queryGroups () ====> ret", e);
+      });
+
+
   }
 
   replies: any[];
@@ -315,7 +332,7 @@ export class InfoComponent implements OnInit {
     return localStorage.getItem('token');
   }
 
-  showerrormessage(msg){
+  showerrormessage(msg) {
     this.toastr.error(msg);
   }
 
