@@ -21,7 +21,7 @@ export class InfoComponent implements OnInit {
 
   @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
   elements: any = [];
-  headElements = ['Contents', 'Type', 'Details', 'Receipt', 'Amount', 'Balance', 'Date', 'Reply'];
+  headElements = ['Contents', 'Type', 'Details', 'Receipt', 'Amount', 'Balance', 'Date', 'Reply', ''];
 
   searchText: string = '';
   previous: string;
