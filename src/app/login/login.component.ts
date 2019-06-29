@@ -25,8 +25,10 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   testForm: FormGroup;
   isCheckBA: Boolean;
+  istoggleAuthForm: Boolean;
 
   ngOnInit() {
+    this.istoggleAuthForm = false;
 
     this.isCheckBA = false;
 
@@ -200,6 +202,10 @@ export class LoginComponent implements OnInit {
         this.toastr.error("계좌정보 등록에 실패하였습니다...", e);
         console.log(JSON.stringify(e));
       });
+  }
+
+  toggleAuthForm() {
+    this.istoggleAuthForm = !this.istoggleAuthForm;
   }
 
   // queryGroup(){

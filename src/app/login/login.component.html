@@ -5,7 +5,8 @@
   </div>
 </div> -->
 
-<div class="form-background">
+<!-- 로그인폼 -->
+<div class="form-background" *ngIf="!istoggleAuthForm">
   <div class="form">
     <div class="row2">
       <div style="margin-top: 58%">
@@ -28,7 +29,7 @@
 
           <!-- Register -->
           <p style="margin-top: 94%; color: #131415;text-decoration: underline;">
-            <a (click)="showSignUpModal()">Register or Find Password</a>
+            <a (click)="toggleAuthForm()">Register or Find Password</a>
           </p>
 
         </form>
@@ -37,8 +38,9 @@
     </div>
   </div>
 </div>
-<!-- 
-<div class="form-background">
+
+<!-- 회원가입폼 -->
+<div class="form-background" *ngIf="istoggleAuthForm">
   <div class="form">
     <div class="row2">
       <div style="margin-top: 58%">
@@ -53,17 +55,17 @@
             <input type="password" id="password" class="form-control" formControlName="userPassword">
           </div>
 
-          <button class="button1" type="submit" (click)="login()">Log In</button>
+          <button class="button1" type="submit" (click)="login()">Sign Up</button>
 
           <p style="margin-top: 94%; color: #131415;text-decoration: underline;">
-            <a (click)="showSignUpModal()">Register or Find Password</a>
+            <a (click)="toggleAuthForm()">Register or Find Password</a>
           </p>
 
         </form>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 
 <!-- 
