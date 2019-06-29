@@ -215,6 +215,9 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  routeLedgerInfo() {
+    this.router.navigate(['ledger/info/' + this.url]);
+  }
   toggleAuthForm() {
     this.istoggleAuthForm = !this.istoggleAuthForm;
   }

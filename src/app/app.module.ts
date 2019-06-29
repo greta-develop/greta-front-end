@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ToastrModule } from 'ngx-toastr';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,6 +16,10 @@ import { RegisterComponent } from './register/register.component';
 import { ListComponent } from './ledger/list/list.component';
 import { InfoComponent } from './ledger/info/info.component';
 import { CreateComponent } from './bank/create/create.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -35,7 +40,12 @@ import { CreateComponent } from './bank/create/create.component';
     JwtModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+      }
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
