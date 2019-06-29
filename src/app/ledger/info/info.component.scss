@@ -1,4 +1,8 @@
-.red-dot {
+body {
+  color: #e0e0e0;
+}
+
+.red-dot { 
   height: 25px;
   width: 25px;
   background-color: #ff554c;
@@ -20,4 +24,12 @@
   background-color: #ffd302;
   border-radius: 50%;
   display: inline-block;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  background: #3a3a3a;
+  border-radius: 50%;
+  text-align: center;
 }
