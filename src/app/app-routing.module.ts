@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
 
   { path: 'ledger/list', component: ListComponent, canActivate: [AuthGuard] },
-  { path: 'ledger/info/:p/:pp', component: InfoComponent, canActivate: [AuthGuard] },
+  { path: 'ledger/info/:p/:pp', component: InfoComponent },
 
   { path: 'bank/create', component: CreateComponent, canActivate: [AuthGuard] },
 ];
