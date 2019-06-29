@@ -1,0 +1,84 @@
+<!-- <div class="container"> -->
+<div class="row">
+  <div class="col-md-4">
+    <!-- Default form login -->
+    <form class="text-center border border-light p-5" [formGroup]="loginForm">
+
+      <p class="h4 mb-4">로그인</p>
+
+      <!-- Material input -->
+      <div class="md-form">
+        <input type="text" id="email1" class="form-control" placeholder="이메일" formControlName="userEmail">
+      </div>
+
+      <!-- Material input -->
+      <div class="md-form">
+        <input type="password" id="password" class="form-control" placeholder="비밀번호" formControlName="userPassword">
+      </div>
+
+
+      <div class="d-flex justify-content-around">
+        <div>
+          <!-- Remember me -->
+          <mdb-checkbox [default]="true">Remember me</mdb-checkbox>
+        </div>
+        <div>
+          <!-- Forgot password -->
+          <a href="">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Sign in button -->
+      <button mdbBtn color="info" block="true" class="my-4" type="submit" (click)="login()">로그인</button>
+
+      <!-- Register -->
+      <p>회원이 아니신가요?
+        <a (click)="showSignUpModal()">회원가입</a>
+      </p>
+
+    </form>
+    <!-- Default form login -->
+  </div>
+  <div class="col-md-8">.col-md-8</div>
+</div>
+<!-- </div> -->
+
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="p-3 form-group" [formGroup]="createForm">
+
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="email" id="orangeForm-email" class="form-control validate" placeholder="email"
+              formControlName="userEmail">
+          </div>
+
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <input type="password" id="orangeForm-pass" class="form-control validate" placeholder="password"
+              formControlName="userPassword">
+          </div>
+
+          <div class="md-form mb-5">
+            <i class="fas fa-user prefix grey-text"></i>
+            <input type="text" id="orangeForm-name" class="form-control validate" placeholder="name"
+              formControlName="userName">
+          </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button class="btn btn-deep-orange" (click)="register()">Sign up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

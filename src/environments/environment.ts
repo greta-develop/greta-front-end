@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  server: {
+    url: 'http://192.168.70.4:8000'
+    // url: 'http://forte.team-crescendo.me:8000'
+    // url: 'http://13.125.25.18:8080'
+  }
 };
 
 /*
